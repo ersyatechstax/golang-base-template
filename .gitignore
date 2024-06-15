@@ -1,0 +1,31 @@
+#vendors
+vendor/
+
+#binary
+gbt
+!gbt/
+gbt_bg
+!gbt_bg/
+gbt_grpc
+!gbt_grpc/
+
+# IDE
+.idea
+.vscode/
+**/.vstags
+
+# sonarqube file
+.scannerwork
+.scannerwork/*
+
+#misc
+.DS_STORE
+**/debug.test
+*.out
+*.cover
+*.directory
+*.swp
+
+
+#auth config
+*auth.local*

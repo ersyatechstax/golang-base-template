@@ -6,4 +6,4 @@ Features include:
 - http
 - nsq consumer
 - db master and replication connection + its query
-- redis connection + query
+- redis connection + pipeline query

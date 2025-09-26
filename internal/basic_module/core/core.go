@@ -16,5 +16,5 @@ func NewBasicCore() BasicCore {
 }
 
 func (bc *basicCore) GetData(ctx context.Context) (string, error) {
-	return "from core", nil
+	return "from core basic_module", nil
 }

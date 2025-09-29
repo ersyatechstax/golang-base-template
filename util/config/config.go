@@ -2,13 +2,15 @@ package config
 
 import (
 	"flag"
+	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"sync"
 
 	"github.com/bitly/go-nsq"
 	"github.com/pkg/errors"
-	"gopkg.in/gcfg.v1"
+	"gopkg.in/yaml.v3"
 )
 
 var (
@@ -108,10 +110,10 @@ func InitConfig() error {
 		environ = "development"
 	}
 
-	err := gcfg.ReadFileInto(&cfg, "configs/etc/gbt/gbt."+environ+".ini")
+	err := Read(&cfg, "configs/etc/gbt/gbt."+environ+".yaml")
 	if err != nil {
 		log.Printf("Error read from configs/etc/gbt folder, err: %v\n", err)
-		err := gcfg.ReadFileInto(&cfg, "/etc/gbt/gbt."+environ+".ini")
+		err := Read(&cfg, "/etc/gbt/gbt."+environ+".yaml")
 		if err != nil {
 			log.Printf("Error read from /etc/gbt folder, err: %v\n", err)
 			return errors.Wrap(err, "failed to read config")
@@ -139,4 +141,31 @@ func Set(config Config) {
 	mux.Lock()
 	defer mux.Unlock()
 	cfg = config
+}
+
+func Read(dest interface{}, paths ...string) error {
+	for _, path := range paths {
+		// check if path exists
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			continue
+		}
+
+		// load config
+		ext := filepath.Ext(path)
+		f, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+		content, err := io.ReadAll(f)
+		if err != nil {
+			return err
+		}
+
+		switch ext {
+		case ".yml", ".yaml":
+			return yaml.Unmarshal(content, dest)
+		}
+	}
+
+	return errors.New("config file not found")
 }

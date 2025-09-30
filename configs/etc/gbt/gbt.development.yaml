@@ -28,6 +28,10 @@ redis:
     idle-timeout-sec: 10
     idle-frequency-check-sec: 5
 
+nsq:
+  gbt:
+    host: "localhost:4150"
+
 Consumer:
   LookupdAddress: "http://localhost:4161"
   DefaultMaxInflight: 100
@@ -38,7 +42,7 @@ Consumer:
   # Consumer config key
 ConsumerList:
   ping-consumer:
-    Switch: off
+    Switch: on
     Topic: "ping_topic"
     Channel: "ping_channel_ims"
     WorkerAmount: 1

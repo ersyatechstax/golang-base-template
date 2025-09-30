@@ -10,6 +10,7 @@ import (
 	redisClient "github.com/golang-base-template/util/cache/client"
 	"github.com/golang-base-template/util/config"
 	databaseClient "github.com/golang-base-template/util/database/client"
+	nsqpublisher "github.com/golang-base-template/util/nsq"
 )
 
 var (
@@ -49,6 +50,9 @@ func InitApp(appConfig config.Config, dbs databaseClient.DatabaseList, rds redis
 			log.Println("[Init] Error when init", handleErr("nonCriticalRedis", err))
 		}
 	}
+
+	//Init NSQ Publisher
+	nsqpublisher.Init(appConfig)
 
 	return nil
 }

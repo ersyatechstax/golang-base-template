@@ -15,6 +15,7 @@ require (
 	github.com/onsi/gomega v1.27.4 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/urfave/negroni v1.0.0
+	gopkg.in/bitly/go-nsq.v1 v1.0.7
 	gopkg.in/redis.v5 v5.2.9
 	gopkg.in/tylerb/graceful.v1 v1.2.15
 	gopkg.in/yaml.v3 v3.0.1

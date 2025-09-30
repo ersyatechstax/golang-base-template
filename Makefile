@@ -15,7 +15,7 @@ gbt: FORCE
 
 bg: FORCE
 	@echo " >> building gbt bg binaries..."
-	@go build -o cmd/gbt/gbt_bg cmd/gbt/main.go
+	@go build -o cmd/gbt/gbt_bg cmd/gbt_bg/main.go
 	@echo " >> gbt bg built."
 	@echo "executing gbt bg..."
 	@./cmd/gbt/gbt_bg

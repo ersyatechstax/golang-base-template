@@ -27,8 +27,9 @@ type (
 		Port         PortConfig
 		Database     map[string]*DatabaseConf `json:"database"`
 		Redis        map[string]*RedisConf    `json:"redis"`
+		Nsq          map[string]*NSQConfig    `yaml:"nsq"`
 		Consumer     ConsumerConfig
-		ConsumerList map[string]*ConsumerListConfig
+		ConsumerList map[string]*ConsumerListConfig `yaml:"ConsumerList"`
 		URL          URLConfig
 	}
 
@@ -75,14 +76,19 @@ type (
 
 	//ConsumerListConfig shall only be used by consumer package
 	ConsumerListConfig struct {
-		Switch       bool
-		Topic        string
-		Channel      string
-		WorkerAmount int
-		MaxInFlight  int
+		Switch       bool   `yaml:"Switch"`
+		Topic        string `yaml:"Topic"`
+		Channel      string `yaml:"Channel"`
+		WorkerAmount int    `yaml:"WorkerAmount"`
+		MaxInFlight  int    `yaml:"MaxInFlight"`
 
 		Handler nsq.Handler
 		Config  *nsq.Config
+	}
+
+	//NSQConfig for NSQ publisher config
+	NSQConfig struct {
+		Host string `yaml:"host"`
 	}
 
 	URLConfig struct {
